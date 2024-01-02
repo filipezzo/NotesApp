@@ -61,7 +61,7 @@ export default function Content({
   };
 
   return (
-    <div className={`py-4 px-8 border flex-1 relative overflow-y-scroll`}>
+    <div className={`py-4 px-8  flex-1 relative overflow-y-scroll`}>
       <header className=" items-center justify-between hidden md:flex relative">
         <div>
           <h2> {getGreetingMessage()} </h2>

@@ -9,8 +9,14 @@ import { CategoryT } from "./types/types";
 import ListItem from "./components/Aside/ListItem";
 
 function App() {
-  const [category, setCategory] = useState<CategoryT[]>([]);
-  const [theme, setTheme] = useState("light");
+  const [category, setCategory] = useState<CategoryT[]>(() => {
+    const savedCategories = localStorage.getItem("categories");
+    return savedCategories ? JSON.parse(savedCategories) : [];
+  });
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
   const handleThemeSwitch = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
@@ -29,6 +35,10 @@ function App() {
     const filter = category.filter((cat) => cat.id !== id);
     setCategory(filter);
   };
+
+  useEffect(() => {
+    localStorage.setItem("categories", JSON.stringify(category));
+  }, [category]);
 
   useEffect(() => {
     if (theme === "dark") {
